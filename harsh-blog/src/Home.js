@@ -22,10 +22,14 @@ const Home = () => {
     // }
     // const handleClickAgain = (name,e) =>{
     //     console.log('hello ' + name, e.target);
+    const handleDelete = (id) => {
+        const newBlogs = blogs.filter(blog => blog.id !== id );
+        setBlogs(newBlogs);
+    }
     return ( 
         <div className="home">
-            <BlogList blogs = {blogs} title= "All Blogs!" />
-            <BlogList blogs = {blogs.filter((blog) => blog.author === 'harsh')} title= "Harsh Blogs!" />
+            <BlogList blogs = {blogs} title= "All Blogs!" />  
+            <BlogList blogs = {blogs.filter((blog) => blog.author === 'harsh')} title= "Harsh Blogs!" handleDelete={handleDelete}/>
             {/* <h2>Homepage</h2>
             <p>{name} is {age} years old</p>
             <button onClick={handleClick}>Click me</button> */}
