@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect} from "react";
 import BlogList from "./BlogList";
 
 const Home = () => {
@@ -22,20 +22,28 @@ const Home = () => {
     // }
     // const handleClickAgain = (name,e) =>{
     //     console.log('hello ' + name, e.target);
+    const [name,SetName] = useState('harsh');
     const handleDelete = (id) => {
         const newBlogs = blogs.filter(blog => blog.id !== id );
         setBlogs(newBlogs);
     }
+    useEffect(()=>{
+        console.log('i am harsh');
+        // console.log(blogs);
+        console.log(name);
+    },[name])
     return ( 
         <div className="home">
-            <BlogList blogs = {blogs} title= "All Blogs!" />  
-            <BlogList blogs = {blogs.filter((blog) => blog.author === 'harsh')} title= "Harsh Blogs!" handleDelete={handleDelete}/>
+            <BlogList blogs = {blogs} title= "All Blogs!" handleDelete={handleDelete} />  
+            {/* <BlogList blogs = {blogs.filter((blog) => blog.author === 'harsh')} title= "Harsh Blogs!" handleDelete={handleDelete}/> */}
             {/* <h2>Homepage</h2>
             <p>{name} is {age} years old</p>
             <button onClick={handleClick}>Click me</button> */}
             {/* <button onClick={handleClick}>Click me</button> */}
             {/* <button onClick ={(e)=>handleClickAgain('harsh', e) }>Click me Again</button> */}
             {/* // console.log('hello'); */}
+            <button onClick={()=> SetName('chicken')}>change name</button>
+            <p>{name}</p>
         </div>
      );
 }
