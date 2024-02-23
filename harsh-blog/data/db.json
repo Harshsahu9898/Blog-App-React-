@@ -1,0 +1,15 @@
+{
+    "blogs": [{
+        "title":"My first Blog",
+        "body":"Why do we use it ?\n It is a long established fact that user can read and give reviews to it for a better reach for a better blog",
+        "author":"harsh",
+        "id":1
+    },
+    {
+        "title":"My second Blog",
+        "body":"Why do we use it ?\n It is a long established fact that user can read and give reviews to it for a better reach for a better blog",
+        "author":"sujal",
+        "id":2
+    }
+    ]
+}

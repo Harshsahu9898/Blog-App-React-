@@ -22,7 +22,7 @@ const Home = () => {
     // }
     // const handleClickAgain = (name,e) =>{
     //     console.log('hello ' + name, e.target);
-    const [name,SetName] = useState('harsh');
+    // const [name,SetName] = useState('harsh');
     const handleDelete = (id) => {
         const newBlogs = blogs.filter(blog => blog.id !== id );
         setBlogs(newBlogs);
@@ -30,8 +30,8 @@ const Home = () => {
     useEffect(()=>{
         console.log('i am harsh');
         // console.log(blogs);
-        console.log(name);
-    },[name])
+        // console.log(name);
+    },[])
     return ( 
         <div className="home">
             <BlogList blogs = {blogs} title= "All Blogs!" handleDelete={handleDelete} />  
@@ -43,7 +43,7 @@ const Home = () => {
             {/* <button onClick ={(e)=>handleClickAgain('harsh', e) }>Click me Again</button> */}
             {/* // console.log('hello'); */}
             <button onClick={()=> SetName('chicken')}>change name</button>
-            <p>{name}</p>
+            {/* <p>{name}</p> */}
         </div>
      );
 }
