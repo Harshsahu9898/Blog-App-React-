@@ -2,11 +2,12 @@ import { useState,useEffect} from "react";
 import BlogList from "./BlogList";
 
 const Home = () => {
-    const [blogs, setBlogs] = useState([
-        {title: 'My new website', body: 'hi this is my new website', author:'harsh',id: 1},
-        {title: 'welcome party!', body: 'hi this is party time', author:'kabir',id: 2},
-        {title: 'React Frameworks', body: 'Best frameworks in the world', author:'sujal',id: 3}
-    ]); 
+    const [blogs, setBlogs] = useState(null
+        // {title: 'My new website', body: 'hi this is my new website', author:'harsh',id: 1},
+        // {title: 'welcome party!', body: 'hi this is party time', author:'kabir',id: 2},
+        // {title: 'React Frameworks', body: 'Best frameworks in the world', author:'sujal',id: 3}
+    );
+    const[isPending,setIsPending] = useState(true); 
 
     // let name = 'harsh';
     // const [name,setName] = useState('harshu');//the value inside the bracket should be of any datatype
@@ -23,18 +24,30 @@ const Home = () => {
     // const handleClickAgain = (name,e) =>{
     //     console.log('hello ' + name, e.target);
     // const [name,SetName] = useState('harsh');
-    const handleDelete = (id) => {
-        const newBlogs = blogs.filter(blog => blog.id !== id );
-        setBlogs(newBlogs);
-    }
+    // const handleDelete = (id) => {
+    //     const newBlogs = blogs.filter(blog => blog.id !== id );
+    //     setBlogs(newBlogs);
+    // }
     useEffect(()=>{
-        console.log('i am harsh');
+        setTimeout(() => {
+            fetch('http://localhost:8000/blogs')
+            .then(res => {
+                return res.json()
+            })
+            .then(data =>{
+                // console.log(data);
+                setBlogs(data);
+                setIsPending(false);
+            })
+        },1000);
+        // console.log('i am harsh');
         // console.log(blogs);
         // console.log(name);
     },[])
     return ( 
         <div className="home">
-            <BlogList blogs = {blogs} title= "All Blogs!" handleDelete={handleDelete} />  
+            {isPending && <div>Loading....</div>}
+            {blogs && <BlogList blogs = {blogs} title= "All Blogs!"  />}  
             {/* <BlogList blogs = {blogs.filter((blog) => blog.author === 'harsh')} title= "Harsh Blogs!" handleDelete={handleDelete}/> */}
             {/* <h2>Homepage</h2>
             <p>{name} is {age} years old</p>
@@ -42,7 +55,7 @@ const Home = () => {
             {/* <button onClick={handleClick}>Click me</button> */}
             {/* <button onClick ={(e)=>handleClickAgain('harsh', e) }>Click me Again</button> */}
             {/* // console.log('hello'); */}
-            <button onClick={()=> SetName('chicken')}>change name</button>
+            {/* <button onClick={()=> SetName('chicken')}>change name</button> */}
             {/* <p>{name}</p> */}
         </div>
      );
