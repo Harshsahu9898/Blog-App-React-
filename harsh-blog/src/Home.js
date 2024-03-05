@@ -8,6 +8,7 @@ const Home = () => {
         // {title: 'React Frameworks', body: 'Best frameworks in the world', author:'sujal',id: 3}
     );
     const[isPending,setIsPending] = useState(true); 
+    const[error,setError] = useState(null);
 
     // let name = 'harsh';
     // const [name,setName] = useState('harshu');//the value inside the bracket should be of any datatype
@@ -30,22 +31,33 @@ const Home = () => {
     // }
     useEffect(()=>{
         setTimeout(() => {
-            fetch('http://localhost:8000/blogs')
+            fetch('http://localhost:8000/blogss')
             .then(res => {
-                return res.json()
+                // return res.json()
+                if(!res.ok){
+                    throw Error('could not fetch data for that resource');
+                }
+                return res.json();
             })
             .then(data =>{
                 // console.log(data);
                 setBlogs(data);
                 setIsPending(false);
+                setError(null)
             })
-        },1000);
+        .catch(err=>{
+            // console.log(err.message);
+            setIsPending(false);
+            setError(err.message)
+        })
         // console.log('i am harsh');
         // console.log(blogs);
         // console.log(name);
-    },[])
+    },1000);
+},[])
     return ( 
         <div className="home">
+            {error && <div>{ error }</div>}
             {isPending && <div>Loading....</div>}
             {blogs && <BlogList blogs = {blogs} title= "All Blogs!"  />}  
             {/* <BlogList blogs = {blogs.filter((blog) => blog.author === 'harsh')} title= "Harsh Blogs!" handleDelete={handleDelete}/> */}
