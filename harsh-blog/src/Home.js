@@ -1,15 +1,11 @@
-import { useState,useEffect} from "react";
+import { useState,useEffect} from 'react';
 import BlogList from "./BlogList";
-
+import useFetch from './useFetch';
 const Home = () => {
-    const [blogs, setBlogs] = useState(null
+    const {data:blogs,isPending,error} = useFetch('http://localhost:8000/blogs')
         // {title: 'My new website', body: 'hi this is my new website', author:'harsh',id: 1},
         // {title: 'welcome party!', body: 'hi this is party time', author:'kabir',id: 2},
         // {title: 'React Frameworks', body: 'Best frameworks in the world', author:'sujal',id: 3}
-    );
-    const[isPending,setIsPending] = useState(true); 
-    const[error,setError] = useState(null);
-
     // let name = 'harsh';
     // const [name,setName] = useState('harshu');//the value inside the bracket should be of any datatype
     // const [age,setAge] = useState(20);
@@ -29,32 +25,7 @@ const Home = () => {
     //     const newBlogs = blogs.filter(blog => blog.id !== id );
     //     setBlogs(newBlogs);
     // }
-    useEffect(()=>{
-        setTimeout(() => {
-            fetch('http://localhost:8000/blogss')
-            .then(res => {
-                // return res.json()
-                if(!res.ok){
-                    throw Error('could not fetch data for that resource');
-                }
-                return res.json();
-            })
-            .then(data =>{
-                // console.log(data);
-                setBlogs(data);
-                setIsPending(false);
-                setError(null)
-            })
-        .catch(err=>{
-            // console.log(err.message);
-            setIsPending(false);
-            setError(err.message)
-        })
-        // console.log('i am harsh');
-        // console.log(blogs);
-        // console.log(name);
-    },1000);
-},[])
+    
     return ( 
         <div className="home">
             {error && <div>{ error }</div>}
